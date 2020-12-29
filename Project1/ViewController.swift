@@ -27,8 +27,23 @@ class ViewController: UITableViewController {
                 pictures.append(item)
             }
         }
+        
+        pictures.sort()
 
 
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(recomendsApp))
+        
+    }
+    
+    @objc func recomendsApp() {
+        
+        let appURL = "This is URL to this App."
+        
+        
+        let vc = UIActivityViewController(activityItems: [appURL], applicationActivities: nil)
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true, completion: nil)
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -39,9 +54,9 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Picture", for: indexPath)
         
-        let sortedPictures = pictures.sorted()
+       
         
-        cell.textLabel?.text = sortedPictures[indexPath.row]
+        cell.textLabel?.text = pictures[indexPath.row]
         
         return cell 
     }
